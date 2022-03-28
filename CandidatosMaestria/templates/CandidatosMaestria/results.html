@@ -1,0 +1,9 @@
+<h1>{{ estatusalumno.estatus }}</h1>
+
+<ul>
+{% for aspirante in estatusalumno.aspirante_set.all %}
+    <li>{{ aspirante.nombre }}  {{ aspirante.apellidopaterno }}  {{ aspirante.apellidomaterno}}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'CandidatosMaestria:detail' estatusalumno.id %}">Asignar denuevo</a>

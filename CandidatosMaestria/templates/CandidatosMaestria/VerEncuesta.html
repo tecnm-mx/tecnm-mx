@@ -1,0 +1,51 @@
+{% extends "CandidatosMaestria/BaseCandidatosMaestros.html" %}
+{% load static %}
+
+{% block Cuerpo %}
+		
+<h1>Encuesta</h1>
+<br><br>
+
+
+
+<div class="table-responsive">
+  
+  {% for pregunta in  Encuesta01.detalleencuesta_set.all %}
+  <table class="table align-middle"> 
+      <thead>
+       
+        <tr>
+          
+          <th>{{forloop.counter}}º {{pregunta.catalogopreguntas}}</th>
+
+         
+        </tr>
+      
+      </thead> 
+      <tbody>
+        <tr>
+          <td><p> R: {{pregunta.Respuesta}}</p></td>
+        </tr>
+    
+      </tbody>
+      
+  </table>  
+  {% endfor %}  
+</div>
+
+
+<br><br>
+
+
+ <div class="form-group">
+    <textarea disabled name="observaciones" class="form-control" id="exampleFormControlTextarea1" rows="3"> {{Encuesta01.Observaciones}}</textarea>
+  </div>
+
+
+  <br><br>
+  <a class="btn btn-outline-success" href="{% url 'CandidatosMaestria:PdfEncuesta' Entrevistaid %}" role="button">PDf</a>
+{% endblock Cuerpo %}
+
+
+
+

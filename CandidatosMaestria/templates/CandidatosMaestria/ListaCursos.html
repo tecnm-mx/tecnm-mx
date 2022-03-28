@@ -1,0 +1,43 @@
+{% extends "CandidatosMaestria/BaseCandidatosAspirantes.html" %}
+
+    {% block Cuerpo %}
+
+		<br>
+		<h2>Cusos Propedeticos</h2>
+		<br>
+
+
+		{% if ListaCurso %}
+		<div class="table-responsive"  >
+			<table class="table align-middle">
+
+				<thead >
+					<tr>
+						
+						<td class="align-top">Curso.</td>
+						<td class="align-top">Maestro.</td>
+						<td class="align-top">Fecha.</td>
+						<td class="align-top">Hora.</td>
+						<td class="align-top">Calificacion</td>
+	
+					</tr>
+				 </thead>
+				     <tbody>
+
+				{% for Curso in ListaCurso %}
+				<tr>
+					<td class="align-top">  <span>{{Curso.cursopropedeutico.Clave.Materia}}</span> </td>
+					<td class="align-top">{{Curso.cursopropedeutico.docente}}</td>
+					<td class="align-top">{{ Curso.cursopropedeutico.FechaInicio }}--{{ Curso.cursopropedeutico.FechaFinalizacion }}</td>
+					<td class="align-top">{{ Curso.cursopropedeutico.HoraInicio }}--{{ Curso.cursopropedeutico.HoraFinalizacion }}</td>
+					<td class="align-top">{{Curso.Calificacion}}</td>
+				</tr>
+			    {% endfor %}
+			         </tbody>
+			</table>
+		</div>
+
+		{% endif %}
+
+		<br><br><br><br>
+    {% endblock Cuerpo %}

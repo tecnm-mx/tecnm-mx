@@ -1,0 +1,60 @@
+{% load static %}
+
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+			{% for Alumno in listaalumnocurso %}
+						
+			{%if forloop.first%}
+            <h2 class="modal-title">{{Alumno.cursopropedeutico.Clave}}</h2>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <form  id="form" action="{% url 'CandidatosMaestria:CursoSave' %}" class="form-inline" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="modal-body">
+                
+						<input type="hidden" name="id" value="{{Alumno.cursopropedeutico.idcurso}}">
+
+						<div class="table-responsive"  >
+							<table class="table align-middle">
+						
+								<thead >
+									<tr>
+										
+										<td class="align-top"><h2>Alumno</h2></td>
+										<td class="align-top"><h2>Contacto</h2></td>
+										<td class="align-top"><h2>Calificacion</h2></td>
+						
+									</tr>
+								 </thead>
+									 <tbody>
+			{%endif%}
+
+			<tr>
+				<td class="align-top">  <p>{{Alumno.aspirante}}</p></td>
+				<td class="align-top"><p>{{Alumno.aspirante.email}}</p></td>
+				<td class="align-top"><input value="{{ Alumno.Calificacion }}" name="{{ Alumno.id }}" type="number"></td>
+			</tr>
+					    {% endfor %}
+
+					</tbody>
+				</table>
+			</div>			
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Cerar" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="enviar" type="submit">Confirmar</button>
+            </div>
+
+           
+        </form>
+
+
+    </div>
+
+</div>

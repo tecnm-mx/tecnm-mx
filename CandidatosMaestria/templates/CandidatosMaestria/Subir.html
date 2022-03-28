@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'CandidatosMaestria/css/resume.css' %}" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <form  id="form" action="{% url 'CandidatosMaestria:UploadFile' %}" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+    
+        <input id="miInput" type="file" name="uploadedFile" size="{{size}}">
+        <input type="hidden" name="id" value="{{requisito_id}}">
+        <br><br><br>
+        
+        <p>{{Descripcion}}</p>
+        <br><br><br>
+         <input type="submit" id="enviar" value="Enviar.">
+    </form>
+    <script src="{% static 'CandidatosMaestria/Java/Validar.js' %}"></script>
+</body>
+</html></html>

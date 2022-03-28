@@ -1,0 +1,207 @@
+{% extends "CandidatosMaestria/BaseCandidatosMaestros.html" %}
+
+{% block css %}
+<style type="text/css">
+	#regiration_form fieldset:not(:first-of-type) {
+		display: none;
+	}
+  </style>
+{% endblock css %}
+
+{% block Cuerpo %}
+
+<h1>Ponencia</h1>
+<br><br>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+ <br><br>
+<form id="regiration_form"  action="{% url 'CandidatosMaestria:SavePonencia' %}" method="post" enctype="multipart/form-data" >
+    {% csrf_token %}
+    <input type="hidden" name="Ponenciaid" value="{{Ponencia01}}">
+    {% for ListaRubrica in ListaCriterioRubrica %}
+
+    {% if forloop.first %}
+    <fieldset>
+        {% for Rubrica in ListaRubrica %}
+
+        
+
+           {%if forloop.first%}
+           <h2><h2>{{Rubrica.criterio}}</h2></h2>
+            <table class="table align-middle">
+
+                <thead >
+                    <tr>
+                        <td class="align-top"><h3>Calificar</h3></td>
+            {% endif %}
+                        <td class="align-top"><h3>{{Rubrica.rubrica}}</h3></td>
+                        {% endfor%}
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {% for opcion in ListaRubrica %}
+                            {% if forloop.first %}
+                                <select  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="{{opcion.criterio}}">
+                            {% endif %}
+                                 <option value="{{opcion.valor}}">{{opcion.rubrica}} -- ({{opcion.valor}})</option>
+                            
+                            {% endfor %}
+                        </td>
+                        {% for Rubrica in ListaRubrica %}
+                        <td class="align-top">{{Rubrica.Descripcion}}</td>
+                        {% endfor %}
+                        
+                    </tr>
+                </tbody>
+            </table>
+            <input type="button" name="data[password]" class="next btn btn-info" value="Siguiente" />
+        </fieldset>
+    {%  endif %} 
+    
+    
+
+
+
+    
+    {% if  forloop.first == False and forloop.last == False  %}
+    <fieldset>
+        {% for Rubrica in ListaRubrica %}
+
+        
+
+           {%if forloop.first%}
+           <h2><h2>{{Rubrica.criterio}}</h2></h2>
+            <table class="table align-middle">
+
+                <thead >
+                    <tr>
+                        <td class="align-top"><h3>Calificar</h3></td>
+            {% endif %}
+                        <td class="align-top"><h3>{{Rubrica.rubrica}}</h3></td>
+                        {% endfor%}
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {% for opcion in ListaRubrica %}
+                            {% if forloop.first %}
+                                <select  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="{{opcion.criterio}}">
+                            {% endif %}
+                                 <option value="{{opcion.valor}}">{{opcion.rubrica}} -- ({{opcion.valor}})</option>
+                            
+                            {% endfor %}
+                        </td>
+                        {% for Rubrica in ListaRubrica %}
+                        <td class="align-top">{{Rubrica.Descripcion}}</td>
+                        {% endfor %}
+                        
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <input type="button" name="previous" class="previous btn btn-default" value="Previo" />
+            <input type="button" name="next" class="next btn btn-info" value="Siguiente" />
+        </fieldset>
+    {%  endif %} 
+
+
+        
+    {% if forloop.last %}
+    <fieldset>
+        {% for Rubrica in ListaRubrica %}
+
+        
+
+           {%if forloop.first%}
+           <h2><h2>{{Rubrica.criterio}}</h2></h2>
+            <table class="table align-middle">
+
+                <thead >
+                    <tr>
+                        <td class="align-top"><h3>Calificar</h3></td>
+            {% endif %}
+                        <td class="align-top"><h3>{{Rubrica.rubrica}}</h3></td>
+                        {% endfor%}
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {% for opcion in ListaRubrica %}
+                            {% if forloop.first %}
+                                <select  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="{{opcion.criterio}}">
+                            {% endif %}
+                                 <option value="{{opcion.valor}}">{{opcion.rubrica}} -- ({{opcion.valor}})</option>
+                            
+                            {% endfor %}
+                        </td>
+                        {% for Rubrica in ListaRubrica %}
+                        <td class="align-top">{{Rubrica.Descripcion}}</td>
+                        {% endfor %}
+                        
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+
+            <div class="form-group">
+                <textarea name="observaciones" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            <br>
+
+
+            <input type="button" name="previous" class="previous btn btn-default" value="Previo" />
+            <input type="submit" name="submit" class="submit btn btn-success" value="Enviar" id="submit_data" />
+        </fieldset>
+    {%  endif %}
+    {% endfor %}
+
+
+
+ 
+
+    <br><br>
+
+</form>
+{% endblock Cuerpo %}
+
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        var current = 1,current_step,next_step,steps;
+        steps = $("fieldset").length;
+        $(".next").click(function(){
+            current_step = $(this).parent();
+            next_step = $(this).parent().next();
+            next_step.show();
+            current_step.hide();
+            setProgressBar(++current);
+        });
+        $(".previous").click(function(){
+            current_step = $(this).parent();
+            next_step = $(this).parent().prev();
+            next_step.show();
+            current_step.hide();
+            setProgressBar(--current);
+        });
+        setProgressBar(current);
+        // Change progress bar action
+        function setProgressBar(curStep){
+            var percent = parseFloat(100 / steps) * curStep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width",percent+"%")
+                .html(percent+"%");		
+        }
+    });
+    </script>
+{% endblock script %}

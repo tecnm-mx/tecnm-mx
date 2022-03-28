@@ -1,0 +1,50 @@
+{% extends "CandidatosMaestria/BaseCandidatosAspirantes.html" %}
+
+
+{% block Cuerpo%}
+		<br>
+		<h2>Entrevista</h2>
+		<br>
+
+
+		{% if Entrevista %}
+		<div class="table-responsive"  >
+			<table class="table align-middle">
+
+				<thead >
+					<tr>
+						
+						<td class="align-top">Fecha.</td>
+						<td class="align-top">Hora.</td>
+						<td class="align-top">Jueces.</td>
+						<td class="align-top">Observaciones</td>
+						
+	
+					</tr>
+				 </thead>
+				     <tbody>
+
+				
+				<tr>
+				
+					<td class="align-top">{{Entrevista.Fecha}}</td>
+					<td class="align-top">{{ Entrevista.HoraInicio }}--{{ Entrevista.HoraFinal }} <br></td>
+					<td class="align-top" > <table class="table align-middle">
+						{% for detalle in Entrevista.detalleentrevista_set.all %}
+						
+						<tr><td class="align-top">{{detalle.docente}}</td></tr>
+						
+						
+						{% endfor %}
+					</table></td>
+					<td class="align-top"> Hola mundo </td>
+
+				</tr>
+			         </tbody>
+			</table>
+		</div>
+
+		{% endif %}
+
+		<br><br><br><br>
+{% endblock Cuerpo %}

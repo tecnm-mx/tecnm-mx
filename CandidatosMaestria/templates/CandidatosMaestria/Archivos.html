@@ -1,0 +1,34 @@
+{% load static %}
+
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title"> Cargar Documento</h2>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <form  id="form" action="{% url 'CandidatosMaestria:UploadFile' %}" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="modal-body">
+                <input class="form-control form-control-lg" id="formFileLg"  type="file" name="uploadedFile" size="{{size}}">
+                <input type="hidden" name="id" value="{{requisito_id}}">
+                <br><br><br>
+                <p class="text-center" class="font-weight-bold">{{Descripcion}}</p>
+                <br><br><br>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="Cerar" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="enviar" type="submit">Confirmar</button>
+            </div>
+
+            <script src="{% static 'CandidatosMaestria/Java/Validar.js' %}"></script>
+        </form>
+
+
+    </div>
+
+</div>

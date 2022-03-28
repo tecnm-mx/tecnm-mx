@@ -1,0 +1,65 @@
+{% extends "CandidatosMaestria/BaseCandidatosMaestros.html" %}
+
+
+
+{% block Cuerpo %}
+
+<h1>Ponencia</h1>
+<br><br>
+
+
+
+
+<div class="table-responsive"  >
+    <table class="table align-middle">
+
+        <thead >
+            
+                {% for detalle in Ponencia01.detalleponencia_set.all %}
+
+                {% if forloop.first %}
+
+                <tr>
+                    <th> Calificacion </th>
+                    {% for rubica  in detalle.criterio.detallecriteriorubrica_set.all %}
+                    <th>{{rubica.rubrica}}</th>
+                    {% endfor%}
+                </tr>
+        </thead>
+
+        <tbody>
+            {% endif %}
+            <tr>
+                <td align="center" colspan="4"><h3>{{detalle.criterio}}</h3> </td>
+            </tr>
+
+            <tr>
+                <td><p>{{detalle.Valor}}</p></td>
+                {% for rubica  in detalle.criterio.detallecriteriorubrica_set.all %}
+                    <td> <p>{{rubica.Descripcion}} ({{rubica.valor}})</p> </td>
+                {% endfor%}
+            </tr>
+            {% endfor%}
+        </tbody>
+        
+    </table>
+
+    
+</div>
+
+
+ <br><br>
+
+
+ <div class="form-group">
+    <textarea disabled name="observaciones" class="form-control" id="exampleFormControlTextarea1" rows="3"> {{Ponencia01.Observaciones}}</textarea>
+  </div>
+
+
+
+
+  
+  <a class="btn btn-outline-success" href="{% url 'CandidatosMaestria:PdfPonencia' Entrevistaid %}" role="button">PDF</a>
+{% endblock Cuerpo %}
+
+

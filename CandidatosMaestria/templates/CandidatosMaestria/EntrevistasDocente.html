@@ -1,0 +1,73 @@
+{% extends "CandidatosMaestria/BaseCandidatosMaestros.html" %}
+
+
+{% block Cuerpo %}
+
+<br>
+<h2>Entrevistas</h2>
+<br>
+
+
+{% if listaentrevista %}
+<div class="table-responsive"  >
+    <table class="table align-middle">
+
+        <thead >
+            <tr>
+                
+                
+                <td class="align-top"> <h3>Fecha</h3></td>
+                <td class="align-top"> <h3>Hora.</h3> </td>
+                <td class="align-top"> <h3>Aspirante.</h3></td>
+                <td class="align-top"></td>
+
+            </tr>
+         </thead>
+             <tbody>
+
+        {% for Entrevista in listaentrevista %}
+        <tr>
+            <td class="align-top"> <p>{{Entrevista.entrevista.Fecha}}</p></td>
+            <td class="align-top"><p>{{Entrevista.entrevista.HoraInicio}}--{{Entrevista.entrevista.HoraFinal}}</p></td>
+            <td class="align-top"><p>{{ Entrevista.entrevista.aspirante }}</p></td>
+            <td class="align-top">
+                {% for ponencia in Entrevista.ponencia_set.all %}
+                    {% if ponencia.status.pk == 1 %}
+                    <a class="btn btn-outline-primary" href="{% url 'CandidatosMaestria:Ponencia' Entrevista.id %}" role="button">Ponencia</a>
+                    {% else %}
+                    <a class="btn btn-outline-info" href="{% url 'CandidatosMaestria:Verponencia' Entrevista.id %} " role="button">Ver</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% for encuesta in Entrevista.encuesta_set.all %}
+                    {% if encuesta.status.pk == 1 %}
+                    <a class="btn btn-outline-success" href="{% url 'CandidatosMaestria:Encuesta' Entrevista.id %}" role="button">Encuesta</a>
+                    {% else %}
+                    <a class="btn btn-outline-info" href="{% url 'CandidatosMaestria:VerEncuesta' Entrevista.id %} " role="button">Ver</a>
+                    {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+             </tbody>
+    </table>
+</div>
+
+{% endif %}
+
+<br><br><br><br>
+
+<div id="Edicion" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Edicion" aria-hidden="true"></div>
+
+{% endblock Cuerpo %}
+
+{% block script %}
+<script type="text/javaScript">
+    var $ = jQuery.noConflict();
+    function Abrir_Modal(url){
+        $('#Edicion').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock script %}

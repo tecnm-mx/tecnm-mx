@@ -1,0 +1,14 @@
+
+
+<form action="{% url 'CandidatosMaestria:asignar' estatusaspirante.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ estatusaspirante.estatus  }}</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% for aspirante in estatusaspirante.aspirante_set.all %}
+            <input type="radio" name="aspirante" id="aspirante{{ forloop.counter }}" value="{{ aspirante.id }}">
+            <label for="aspirante{{ forloop.counter }}">{{ aspirante.nombre }}</label><br>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Vote">
+    </form>

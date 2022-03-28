@@ -1,0 +1,81 @@
+{% extends "CandidatosMaestria/BaseCandidatosAspirantes.html" %}
+
+
+{% block Cuerpo %}
+		
+{% if ListaRequisitos %}
+<div class="table-responsive"  >
+    <br>
+
+    <h2>Requisitos</h2>
+<br>
+    <table class="table align-middle">
+
+        <thead >
+            <tr>
+                
+                <td class="align-top">Requisito.</td>
+                <td class="align-top">Estatus.</td>
+                <td class="align-top">Observaciones.</td>
+                <td class="align-top">Documento.</td>
+
+            </tr>
+         </thead>
+             <tbody>
+
+        {% for requisito in ListaRequisitos %}
+        <tr>
+            
+
+
+            
+            <td class="align-top">  <span>{{requisito.requisito}}</span> </td>
+
+            
+            
+            <td class="align-top">{{requisito.estatus}}</td>
+            <td class="align-top">{{requisito.observaciones}}</td>
+            
+                 <td class="align-top">
+                    {% if requisito.estatus.id != 1 %}
+                         <a class="btn btn-outline-info" href="http://192.168.1.132:8080/media/{{ requisito.ruta }}" role="button">Ver</a>
+                    {% endif %}
+                    {% if requisito.estatus.id != 4 %}
+                        <button onclick="Abrir_Modal('{% url 'CandidatosMaestria:Subir' requisito.id %}')"  class="btn btn-primary">Subir</button>
+
+
+                    {% endif %}
+                
+                </td>
+            
+                 
+            
+
+            
+            
+
+        </tr>
+        {% endfor %}
+             </tbody>
+    </table>
+  </div>
+{% endif %}
+
+<br><br><br><br>
+
+<div class="modal fade" id="Edicion" tabindex="-1" role="dialog" aria-labelledby="Edicion" aria-hidden="true"></div>
+
+{% endblock Cuerpo %}	
+
+
+{% block script %}
+<script type="text/javaScript">
+    var $ = jQuery.noConflict();
+    function Abrir_Modal(url){
+        $('#Edicion').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock script %}
+	

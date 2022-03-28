@@ -1,0 +1,58 @@
+{% extends "CandidatosMaestria/BaseCandidatosMaestros.html" %}
+
+
+{% block Cuerpo %}
+
+<br>
+<h2>Cusos Propedeticos</h2>
+<br>
+
+
+{% if listadocentecurso %}
+<div class="table-responsive"  >
+    <table class="table align-middle">
+
+        <thead >
+            <tr>
+                
+                <td class="align-top">Curso.</td>
+                <td class="align-top">Fecha.</td>
+                <td class="align-top">Hora.</td>
+                <td class="align-top">Ver</td>
+
+            </tr>
+         </thead>
+             <tbody>
+
+        {% for Curso in listadocentecurso %}
+        <tr>
+            <td class="align-top">  {{Curso.Clave}}</td>
+            <td class="align-top">{{ Curso.FechaInicio }}--{{ Curso.FechaFinalizacion }}</td>
+            <td class="align-top">{{ Curso.HoraInicio }}--{{ Curso.HoraFinalizacion }}</td>
+            <td class="align-top">
+                <button onclick="Abrir_Modal('{% url 'CandidatosMaestria:Curso' Curso.idcurso %}')"  class="btn btn-primary">Calificar</button>
+            </td>
+        </tr>
+        {% endfor %}
+             </tbody>
+    </table>
+</div>
+
+{% endif %}
+
+<br><br><br><br>
+
+<div id="Edicion" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="Edicion" aria-hidden="true"></div>
+
+{% endblock Cuerpo %}
+
+{% block script %}
+<script type="text/javaScript">
+    var $ = jQuery.noConflict();
+    function Abrir_Modal(url){
+        $('#Edicion').load(url,function(){
+            $(this).modal('show');
+        });
+    }
+</script>
+{% endblock script %}
